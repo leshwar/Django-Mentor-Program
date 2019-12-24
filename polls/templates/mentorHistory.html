@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    
+    <title>Mentor: Home Page</title>
+  </head>
+  {% include "header.html" %}
+
+<style type="text/css">
+  .custom-btn {
+    font-size: 20px;
+    padding: 0px;
+  }
+</style>
+
+  <body>
+    <div class="container">
+      {% include "navmenu-mentor.html" %}
+      {% if mentor_history %}
+        <div class="accordion" id="accordionExample">
+          {% for report_history in mentor_history %}
+            <div class="card">
+              <div class="card-header" id = {{ report_history.activity_summary.report_id }}>
+                <h2 class="mb-0">
+                  <button class="btn btn-link custom-btn" type="button" data-toggle="collapse" data-target= {{ report_history.collapse_mentor }} aria-expanded="true" aria-controls={{ report_history.aria_mentor }}>
+                    {{ report_history.month }} - {{ report_history.year}} {{ i }}
+                  </button>
+                </h2>
+              </div>
+              <div id={{ report_history.aria_mentor }} class="collapse" aria-labelledby={{ report_history.activity_summary.report_id }} data-parent="#accordionExample">
+                <div class="card-body">
+                  <h5>Monthly call attended: {{report_history.activity_summary.callattended}}</h5>
+                  <table class="table table-sm table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Meeting/Activity Scheduled</th>
+                        <th scope="col">Attended</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Activity Duration  <br/>(Hrs : Mins)</th>
+                        <th scope="col">Comments (Include goals set, accomplishments, issues)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {% for record in  report_history.activities %}
+                      <tr>
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td>{{ record.activity_type }}</td>
+                        <td>{{ record.iskept }}</td>
+                        <td>{{ record.date }}</td>
+                        <td>{{ record.hours }} hours : {{ record.minutes }} mins</td>
+                        <td>{{ record.comments }}</td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table> 
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        </div> 
+      {% else %}
+        <div>No records found</div> 
+      {% endif %}
+    </div>
+  </body>
+
+  {% include "commonJS.html" %}
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('#view-activity-report').addClass('active');
+    } );
+  </script>
+</html>

@@ -1,0 +1,64 @@
+.style45 {
+    font-size: 65px;
+    color: #000000;
+}
+
+.navbar {
+    margin: 15px 0 20px 0;
+}
+
+#navmenu .nav-item {
+    border-right: 1px solid #dadada;
+    font-size: 20px;
+}
+
+#navmenu .nav-link {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#navmenu {
+    padding: 0;
+    margin-bottom: 12px;
+}
+
+#navmenu .nav-item .active {
+    border-bottom: 3px solid #0384b4 !important;
+}
+
+#navmenu li:hover {
+    background-color: #e2e6ef;
+    text-decoration: none;
+}
+
+.align-content-loginpages {
+    text-align: center;
+    margin-top: 8%;
+}
+
+.align-content-loginpages form {
+    display: inline-block;
+}
+
+.custom-a, .custom-a:hover {
+    cursor: default;
+    color: white;
+}
+
+.navbar.navbar-dark .breadcrumb .nav-item.active>.nav-link, .navbar.navbar-dark .navbar-nav .nav-item.active>.nav-link {
+    background-color: rgba(255,255,255,.3);
+}
+
+@media screen and (max-width: 1334px) {
+    .style45 {
+        font-size: 55px;
+        color: #000000;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .style45 {
+        font-size: 30px;
+        color: #000000;
+    }
+}

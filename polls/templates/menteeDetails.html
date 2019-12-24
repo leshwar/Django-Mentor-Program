@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<title>Mentee Registration</title>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+
+    <style type="text/css">
+        .header {
+            align-content: center;
+            width: 100%;
+        }
+
+        .lead {
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .row {
+            margin-bottom: 15px;
+        }
+
+        .form-rounded {
+            border-radius: 1rem;
+        }
+
+        .style45 {
+            font-size: 70px;
+            color: #000000;
+        }
+
+        .required_field {
+            color: red;
+        }
+    </style>
+</head>
+
+{% include "header.html" %}
+
+<body>
+
+    <div class="container">
+        {% include "navmenu.html" %}
+        {% if mentee_data %}
+        <div class="text-center lead">
+            <span class="lead" style="font-size: 40px; font-weight: bold;">Mentee Details</span>
+        </div>
+        <form class="" action="" method="POST">
+            {% csrf_token %}
+            <div class="row" style="margin-left: 0;">
+                <!-- Col1 Starts here -->
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3>
+                                <label for="personal_details" class="">Personal Details <span
+                                        class="required_field">*</span></label>
+                            </h3>
+                        </div>
+                    </div>
+                    {% for m in mentee_data %}
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="id" class="lead">Id <span class="required_field">*</span></label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-rounded" id="id" name="id"
+                                value="{{ m.mentee_id }}" disabled>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="name" class="lead">First Name <span class="required_field">*</span></label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-rounded editable" id="firstname" name="firstname" placeholder="First Name" value="{{ m.firstname }}" disabled required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="name" class="lead">Last Name <span class="required_field">*</span></label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-rounded editable" id="lastname" name="lastname" placeholder="Last Name" value="{{ m.lastname }}" disabled required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="age" class="lead">Your Age</label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-rounded editable" id="age" name="age" placeholder="Enter Age (In Years)" value="{{ m.age }}" disabled>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="phone" class="lead">Cell Phone <span class="required_field">*</span></label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-rounded editable" id="phone" name="phone" placeholder="Enter Phone" value="{{ m.phonenumber }}" disabled required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="email" class="lead">Email <span class="required_field">*</span></label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="email" class="form-control form-rounded" id="email" name="email" placeholder="Enter Email" value="{{ m.email }}" disabled required>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label for="city" class="lead">City where you live <span
+                                    class="required_field">*</span></label>
+                        </div>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control form-rounded editable" id="city" name="city" placeholder="Enter City" value="{{ m.city }}" disabled required>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    {% for mr in mentee_reg_data %}
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <label for="communication_platform" class="lead">Are you comfortable using Skype, Zoom,
+                                or
+                                other similar platforms to communicate?</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="row" style="margin-left: 0;">
+                                <div class="col-sm-5">
+                                    <input class="form-check-input editable" type="radio" name="platform_yes_no" id="platform_yes_no"
+                                        value="Yes" disabled {% if mr.comm_plat == 'Yes' %} checked{% endif %}>
+                                    <label class="form-check-label lead" for="platform_yes_no">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="col-sm-5">
+                                    <input class="form-check-input editable" type="radio" name="platform_yes_no" id="platform_yes_no" value="No" disabled {% if mr.comm_plat == 'No' %} checked{% endif %}>
+                                    <label class="form-check-label lead" for="platform_yes_no">
+                                        No
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <!-- Col2 Starts here -->
+                <div class="col-sm-6">
+                    <div class="col-sm-12">
+                        <h3>
+                            <label for="personal_details" class="">Registration Details <span
+                                    class="required_field">*</span></label>
+                        </h3>
+                    </div>
+                    {% for mr in mentee_reg_data %}
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="details_1" class="lead">1. What is one desire/dream/passion that you
+                                have?</label>
+                            <textarea class="form-control form-rounded editable" id="details_1" name="details_1" rows="3" disabled>{{ mr.desire_dream}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="details_2" class="lead">2. Please tell us one thing you would like to get out of having a mentor? <span class="required_field">*</span></label>
+                            <textarea class="form-control form-rounded editable" id="details_2" name="details_2" rows="3" disabled required>{{ mr.have_mentor}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="details_3" class="lead">3. Please describe yourself, e.g. sports nut, techie, social butterfly, dog lover, foodie, health nut, traveler etc.</label>
+                            <textarea class="form-control form-rounded editable" id="details_3" name="details_3" rows="3" disabled>{{ mr.desc_yourslf}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="details_4" class="lead">4. Are there any major challenges you are currently confronting? <span class="required_field">*</span></label>
+                            <textarea class="form-control form-rounded editable" id="details_4" name="details_4" rows="3" disabled required>{{ mr.major_chall}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="details_5" class="lead">Describe your ideal mentor <span
+                                    class="required_field">*</span></label>
+                            <textarea class="form-control form-rounded editable" id="details_5" name="details_5" rows="3" disabled required>{{ mr.ideal_mentor}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="details_6" class="lead">Is there anything else you would like to tell us about yourself or what you want from your mentor relationship?</label>
+                            <textarea class="form-control form-rounded editable" id="details_6" name="details_6" rows="3" disabled>{{ mr.any_else}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="mentor_race" class="lead">Is it important for you to have a mentor of the same race/ethnicity? <span class="required_field">*</span></label><br>
+                                <div class="row" style="margin-left: 0;">
+                                    <div class="col-sm-3">
+                                        <input class="form-check-input editable" type="radio" name="mentor_race" id="mentor_race" value="Yes"
+                                            disabled {% if mr.race_req == 'Yes' %} checked{% endif %}>
+                                        <label class="form-check-label lead" for="mentor_race">
+                                            Yes
+                                        </label>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input class="form-check-input editable" type="radio" name="mentor_race" id="mentor_race" value="No"
+                                            disabled {% if mr.race_req == 'No' %} checked{% endif %}>
+                                        <label class="form-check-label lead" for="mentor_race">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label for="mentor_race_details" class="lead">If yes, with what race/ethnicity do you identify?</label>
+                            <input type="text" class="form-control form-rounded editable" id="mentor_race_details" name="mentor_race_details" value="{{ mr.race_details }}" disabled>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <br>
+            <div class="row">
+                <div class="col-sm-4"></div>
+                <div class="col-sm-4">
+                    <button type="button" id="back" class="btn btn-primary">Back</button>
+                    <button type="button" id="editButton" class="btn btn-primary">Edit</button>
+                    <button type="submit" id="submitButton" class="btn btn-success" disabled>Save</button>
+                </div>
+                <div class="col-sm-4"></div>
+            </div>
+        </form>
+        {% else %}
+        <div class="text-center lead">
+            <span class="lead" style="font-size: 40px; font-weight: bold;">Mentee Not Present in the system</span>
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#view-mentee').addClass('active');
+        $("#back").off('click');
+        $("#back").on('click', function() {
+            window.history.back();
+        });
+
+        $("#editButton").off('click');
+        $("#editButton").on('click', function() {
+            $("#editButton").attr('disabled', 'disabled');
+            $("#submitButton").removeAttr('disabled');
+            $(".editable").removeAttr('disabled');
+        });
+    });
+</script>
+
+</html>

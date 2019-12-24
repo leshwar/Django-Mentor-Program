@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+{% include "header.html" %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<body>
+
+<div class="container">
+    {% include "navmenu.html" %}
+    <div class="tab-content">
+        <div class="">
+                {% if mentee_list %}
+            <table id="mentee-list" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Mentee Id</th>
+                        <th>Mentee Name</th>
+                        <th>Email</th>
+                        <th>Phone Number</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for m in mentee_list %}
+                            <tr id="{{ m.mentee_id }}">
+                                <td>{{ m.mentee_id }} </td>
+                                <td>{{ m.firstname }} {{ m.lastname }} </td>
+                                <td>{{ m.email }}</td>
+                                <td>{{ m.phonenumber }}</td>
+                                <td>
+                                    <button type="button" data-toggle="tooltip" data-placement="bottom" title="View Mentee Details" class="btn btn-sm btn-primary" onclick="location.href = '/polls/menteeDetails/{{ m.mentee_id }}'"><i class="fa fa-eye fa-2x icon"></i></button>
+                                    <!--<button type="button" class="btn btn-success" onclick="location.href = '/polls/editMentee/{{ m.mentee_id }}'"><i class="fa fa-edit icon"></i></button> -->
+                                    <button type="button" data-toggle="tooltip" data-placement="bottom" title="Delete Mentee" class="btn btn-sm btn-danger" onclick="deleteUser({{ m.mentee_id }})"><i class="fa fa-trash fa-2x icon"></i></button>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    
+                </tbody>
+            </table>
+            {% else %}
+                <p>No mentee are available.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+</body>
+
+
+{% include "commonJS.html" %}
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#mentee-list').DataTable( {
+        } );
+
+        $('#view-mentees').addClass('active');
+    } );
+
+    function deleteUser(mentee_id) {
+        var choice = confirm("want to delete user?");
+
+        if(choice) {
+            $.ajax({
+              type: "POST",
+              url: 'viewMentees',
+              data: {mentee_id: mentee_id},
+              success: function(result){
+                document.location.reload(true);
+              }
+            });
+        }
+    }
+</script>
+</html>
